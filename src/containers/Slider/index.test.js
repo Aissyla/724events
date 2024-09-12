@@ -8,7 +8,7 @@ const data = {
       title: "World economic forum",
       description:
         "Oeuvre à la coopération entre le secteur public et le privé.",
-      date: "2022-02-29T20:28:45.744Z",
+      date: "2022-02-28T20:28:45.744Z", // suppression 29 car n'existe pas
       cover: "/images/evangeline-shaw-nwLTVwb7DbU-unsplash1.png",
     },
     {
@@ -36,7 +36,7 @@ describe("When slider is created", () => {
       </DataProvider>
     );
     await screen.findByText("World economic forum");
-    await screen.findByText("janvier");
+    await screen.findByText("février");
     await screen.findByText(
       "Oeuvre à la coopération entre le secteur public et le privé."
     );
