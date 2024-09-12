@@ -13,7 +13,22 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const { data } = useData(); // Récupère les données depuis le contexte
+
+  // Trier les événements par date décroissante
+  const sortedEvents = data?.events?.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Récupérer le dernier événement
+  const last = sortedEvents?.[0] || {};  // Utiliser un objet vide comme valeur par défaut si pas d'événement
+
+  // Définir les valeurs par défaut si des données manquent
+  const lastEventData = {
+    cover: last.cover || "/images/default-cover.png",   // Image de couverture par défaut
+    title: last.title || "Événement Inconnu",           // Titre par défaut
+    date: last.date ? new Date(last.date) : new Date(), // Date actuelle si non disponible
+    type: last.type || "Autre",                         // Type par défaut
+  };
+
   return <>
     <header>
       <Menu />
@@ -22,7 +37,7 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section className="ServicesContainer">
+      <section id="nos-services" className="ServicesContainer"> {/* Ajout de l'ID pour la navigation */}
         <h2 className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
@@ -51,11 +66,11 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section className="EventsContainer">
+      <section id="nos-realisations" className="EventsContainer"> {/* Ajout de l'ID pour la navigation */}
         <h2 className="Title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section className="PeoplesContainer">
+      <section id="notre-equipe" className="PeoplesContainer"> {/* Ajout de l'ID pour la navigation */}
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
@@ -117,12 +132,14 @@ const Page = () => {
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+            data-testid="last-event"
+            imageSrc={lastEventData.cover}
+            imageAlt={lastEventData.title} // Utiliser le titre comme alt
+            title={lastEventData.title}
+            date={lastEventData.date}
+            small
+            label={lastEventData.type}
+          />
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
