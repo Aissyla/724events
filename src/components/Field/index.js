@@ -13,6 +13,7 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
     case FIELD_TYPES.INPUT_TEXT:
       component = (
         <input
+          required="required"
           type="text"
           name={name}
           placeholder={placeholder}
@@ -26,6 +27,7 @@ const Field = ({ type = FIELD_TYPES.INPUT_TEXT, label, name, placeholder }) => {
     default:
       component = (
         <input
+          required="required"
           type="text"
           name={name}
           placeholder={placeholder}
