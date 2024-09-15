@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+/* eslint-disable no-unused-expressions */
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Home from "./index";
 
 describe("When Form is created", () => {
@@ -27,18 +28,55 @@ describe("When Form is created", () => {
 
 });
 
-
+// Ajout de tests d'intégration
 describe("When a page is created", () => {
-  it("a list of events is displayed", () => {
-    // to implement
-  })
-  it("a list a people is displayed", () => {
-    // to implement
-  })
-  it("a footer is displayed", () => {
-    // to implement
-  })
-  it("an event card, with the last event, is displayed", () => {
-    // to implement
-  })
+  it("a list of events is displayed", async () => {
+    render(<Home />);
+    
+    // Vérifie que le titre "Nos réalisations" est bien affiché
+    const nosReal = await screen.getByTestId("realisation-title");
+    expect(nosReal).toBeInTheDocument();
+    
+    // Vérifie que la liste des événements est affichée
+    const eventsList = await screen.getByTestId("events-list");
+    expect(eventsList).toBeInTheDocument();
+  });
+
+  it("a list of people is displayed", async () => {
+    render(<Home />);
+    
+    // Vérifie la présence des membres de l'équipe
+    await screen.findByText("Samira");
+    await screen.findByText("Jean-baptiste");
+    await screen.findByText("Alice");
+    await screen.findByText("Luís");
+    await screen.findByText("Christine");
+    await screen.findByText("Isabelle");
+  });
+
+  it("a footer is displayed", async () => {
+    render(<Home />);
+    
+    // Vérifie que le footer est affiché
+    const footer = screen.getByRole('contentinfo'); // 'contentinfo' correspond au footer
+    expect(footer).toBeInTheDocument();
+    
+    // Vérifie le contenu du footer
+    expect(screen.getByText("Notre derniére prestation")).toBeInTheDocument();
+    expect(screen.getByText("Contactez-nous")).toBeInTheDocument();
+  });
+
+  it("an event card, with the last event, is displayed", async () => {
+    render(<Home />);
+    
+    // Utilise waitFor pour s'assurer que l'événement est bien affiché
+    await waitFor(() => {
+      const eventCard = screen.getByTestId("last-event");
+      expect(eventCard).toBeInTheDocument();
+
+      // Vérifie que le titre du dernier événement est affiché
+      const lastEventTitle = screen.getByText(/Événement Inconnu/i); // Remplacez par le vrai titre si connu
+      expect(lastEventTitle).toBeInTheDocument();
+    });
+  });
 });

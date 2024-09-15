@@ -37,7 +37,7 @@ const Page = () => {
       <section className="SliderContainer">
         <Slider />
       </section>
-      <section id="nos-services" className="ServicesContainer"> {/* Ajout de l'ID pour la navigation */}
+      <section id="nos-services" className="ServicesContainer" data-testid="services-list"> {/* Ajout de l'ID pour la navigation */}
         <h2 className="Title">Nos services</h2>
         <p>Nous organisons des événements sur mesure partout dans le monde</p>
         <div className="ListContainer">
@@ -66,11 +66,11 @@ const Page = () => {
           </ServiceCard>
         </div>
       </section>
-      <section id="nos-realisations" className="EventsContainer"> {/* Ajout de l'ID pour la navigation */}
-        <h2 className="Title">Nos réalisations</h2>
+      <section id="nos-realisations" className="EventsContainer" data-testid="events-list"> {/* Ajout de l'ID pour la navigation */}
+        <h2 className="Title" data-testid="realisation-title">Nos réalisations</h2>
         <EventList />
       </section>
-      <section id="notre-equipe" className="PeoplesContainer"> {/* Ajout de l'ID pour la navigation */}
+      <section id="notre-equipe" className="PeoplesContainer" data-testid="people-list"> {/* Ajout de l'ID pour la navigation */}
         <h2 className="Title">Notre équipe</h2>
         <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
         <div className="ListContainer">
@@ -128,7 +128,7 @@ const Page = () => {
         </Modal>
       </div>
     </main>
-    <footer className="row">
+    <footer className="row"  data-testid="footer">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
         <EventCard
